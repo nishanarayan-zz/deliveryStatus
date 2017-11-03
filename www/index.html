@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+<title></title>
+<link rel="manifest" href="manifest.json">
+<link href="css/style.css" rel="stylesheet">
+<script src="lib/ionic/js/ionic.bundle.js"></script>
+<script TYPE="text/javascript"
+	src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+<script src="cordova.js"></script>
+<script src="js/app.js"></script>
+<script src="js/deliveryStatusController.js"></script>
+</head>
+<body ng-app="starter" bgcolor="black">
+	<table class="deliverySignIn" cellspacing="0" cellpadding="0"
+		ng-controller="signInCtrl" ng-hide="hideSignIn">
+		<thead class="signInHeader">
+			<th>
+				&nbsp;&nbsp; Aroma
+				  </th>
+		</thead>
+		<tbody class="signInDetails">
+			<tr height="10px">
+				<td width="100%"></td>
+			</tr>
+			<tr width="100%" style="color: grey;">
+				<td width="100%">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Username
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</td>
+			</tr>
+			<tr>
+				<td width="100%">
+					<center>
+						<input ng-model="username" class="signInInput" type="text" />
+					</center>
+				</td>
+			</tr>
+			<tr height="5px">
+				<td width="100%"></td>
+			</tr>
+			<tr>
+				<td width="100%">Password</td
+			</tr>
+
+			<tr>
+				<td width="100%">
+					<center>
+						<input ng-model="password" class="signInInput" type="password" />
+					</center>
+				</td>
+			</tr>
+			<tr height="20px">
+				<td width="100%"><center id = "signInError" ng-hide = "hideSignInError" > Incorrect Username or Password </center></td>
+			</tr>
+			<tr>
+				<td width="100%">
+					<center>
+						<button class="buttons" ng-click="signIn()">Sign In</button>
+					</center>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+        
+   
+	<div id="deliveryStatusContainer" ng-controller="deliveryStatusController" ng-hide="hideOrders"  >
+	 <div id="logOff" ng-click="logOut()">
+			<img ng-src="img/logOut.png" ng-hide="hideLogOff" />
+	</div>
+		<table class="delivery_status" cellspacing="0" cellpadding="0" >
+			<thead class="deliveryPerson_header" >
+				<th colspan="2" width = "100%" style="height:23px;">
+				 {{deliveryPerson}}  </th>
+				<tr class="deliveryStatus_header" >
+					<td width="80px" style="height:20px;border:1px solid grey;"> <center> Order </center></td>	
+					<td width="80px" style="height:20px;border:1px solid grey;"> <center>Status</center></td>
+				</tr>
+			</thead>
+			<tbody id="deliveryOrders">
+				<tr id="orderList" ng-repeat="order in deliveryList">
+					<td width="80px"
+						style="color: grey; border: 1px solid grey; text-align: center;"
+						ng-click="showDeliveryAddress(order._id)"
+						ng-class="{orderSelected:isOrderSelected(order._id)}">
+						{{order.OrderId}}</td>
+					<td width="80px" style="border: 1px solid grey;">
+						<center>
+							<button class="buttons"
+								ng-class="{Highlight: order._id === isItemDelivered(order._id)}"
+								ng-click="updateDeliveryStatus(order._id)">Delivered</button>
+						</center>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>
+
+<script type="text/ng-template" id="customerAddress.html">
+     <div class = "modal-header-background" >
+      <img class = "modalCloseBtn"  src = "img/close4.png" ng-click="hideModal()" /> 
+     </div>
+     <div class = "modal-body-background">
+     <div class = "modal-body" >
+      <div class = "modal-validationText">  
+       {{customerAddress.shipAddressLine1}} <br>
+       {{customerAddress.shipAddressLine2}} <br>
+       {{customerAddress.shipCity}} <br>
+       {{customerAddress.shipState}} <br>
+       {{customerAddress.shipZipCode}} <br>
+       <div> <img class = "phoneIcon" src = "img/phone.png" /> {{customerPhone}} </div>
+      </div>
+     </div>
+     </div>
+</script>
+
+</html>
